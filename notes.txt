@@ -1,0 +1,22 @@
+How authentication works
+
+Server side session and Authentication tokens (next auth has both)
+
+Server side session
+    - store unique identifier on server, send same identifier to client
+    - client send identifier along with request to protect resources
+
+Authentication tokens
+    - create (but not store) permissions token on server, send token to client
+    - client sends token along with requests rto protect resources
+
+Si el server no ve cada request, usar tokens
+
+JSW Tokens
+
+Generated with 3 main building blocks
+    Issuer data
+    Custom data
+    Secret Signing key
+
+    Server side token creation + signing = JSON web token
