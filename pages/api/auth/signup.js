@@ -13,13 +13,13 @@ async function handler(req, res) {
 
     if (
       !email ||
-      !email.includes('@') ||
+      !email.includes("@") ||
       !password ||
       password.trim().length < 7
     ) {
       res.status(422).json({
         message:
-          'Invalid input - password should also be at least 7 characters long.',
+          "Invalid input - password should also be at least 7 characters long.",
       });
       return;
     }
@@ -27,7 +27,16 @@ async function handler(req, res) {
     //connect to database
     const client = await connectToDatabase();
 
-    const db = client.db();  
+    const db = client.db();
+
+    //check if user already exists
+    const existingUser = await db.collection("users").findOne({ email: email });
+
+    if (existingUser) {
+      res.status(422).json({ message: "Email already in use" });
+      client.close();
+      return;
+    }
 
     //hash password
     const hashedPassword = await hashPassword(password);
@@ -39,7 +48,6 @@ async function handler(req, res) {
 
     res.status(201).json({ message: "Created user!" });
     client.close();
-
   }
 }
 
