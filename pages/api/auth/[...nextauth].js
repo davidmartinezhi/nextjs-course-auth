@@ -26,6 +26,7 @@ export default NextAuth({
 
           //No user found
           if (!user) {
+            client.close();
             throw new Error("No user found!");
           }
 
