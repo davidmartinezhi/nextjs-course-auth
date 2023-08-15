@@ -7,6 +7,7 @@ function ProfilePage() {
 
 export async function getServerSideProps(context) {
   //page will only render if we are authenticated
+  
   const session = await getSession({ req: context.req });
 
   //not logged in
